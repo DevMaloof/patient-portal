@@ -1,0 +1,7 @@
+Remove-Item -Recurse -Force .next
+
+<Input type='email' placeholder='Email' className='h-1/6 w-11/12 rounded-xl text-white'></Input>
+                    <Button>Submit</Button>
+
+
+ sm:bottom-44 max-sm:bottom-44 md:bottom-80 lg:bottom-44
