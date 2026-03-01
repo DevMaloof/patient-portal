@@ -53,10 +53,10 @@ uploads/
 tmp/
 
 # Media files (consolidated)
-public/*.webm
 public/*.mp4
 public/*.mov
-*.webm
+public/*.avi
+public/*.mkv
 *.mp4
 *.mov
 *.avi
