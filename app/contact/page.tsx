@@ -169,9 +169,11 @@ const Contact = () => {
   ];
 
   return (
-    <div className="min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full  bg-white/25 backdrop-blur-2xl z-50 border-b border-white/20 shadow-lg">
+    // ✅ Dark theme root
+    <div className="min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white">
+
+      {/* Navigation - Dark glassmorphism */}
+      <nav className="fixed top-0 w-full bg-slate-900/80 backdrop-blur-xl z-50 border-b border-white/10 shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <LogoTextWhite />
@@ -186,7 +188,7 @@ const Contact = () => {
           <Image
             src="/medical-center-exterior.webp"
             fill
-            className="object-cover brightness-75"
+            className="object-cover brightness-50"
             alt="Maloof Health Medical Center"
             priority
           />
@@ -227,14 +229,14 @@ const Contact = () => {
         </div>
       </div>
 
-      {/* Contact Information Grid */}
-      <div className="py-20 px-4">
+      {/* Contact Information Grid - Dark */}
+      <div className="py-20 px-4 bg-slate-900">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-4">
+            <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-4">
               Get in Touch
             </h2>
-            <p className="text-gray-600 text-lg max-w-3xl mx-auto">
+            <p className="text-gray-400 text-lg max-w-3xl mx-auto">
               Multiple ways to connect with our healthcare team — we're always here to serve you better
             </p>
           </div>
@@ -243,7 +245,7 @@ const Contact = () => {
             {contactInfo.map((info, idx) => (
               <Card
                 key={idx}
-                className={`bg-white/70 backdrop-blur-xl border-white/20 p-6 hover:shadow-2xl transition-all duration-300 group relative overflow-hidden`}
+                className={`bg-slate-800/50 backdrop-blur-sm border-white/10 p-6 hover:shadow-2xl hover:border-blue-500/30 transition-all duration-300 group relative overflow-hidden`}
               >
                 <div className={`absolute inset-0 bg-gradient-to-br ${info.accent} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
 
@@ -251,8 +253,8 @@ const Contact = () => {
                   <div className={`w-14 h-14 bg-gradient-to-r ${info.gradient} rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform`}>
                     {info.icon}
                   </div>
-                  <h3 className="text-xl font-bold text-gray-800 mb-4">{info.title}</h3>
-                  <div className="text-gray-600 whitespace-pre-line mb-6 leading-relaxed">
+                  <h3 className="text-xl font-bold text-white mb-4">{info.title}</h3>
+                  <div className="text-gray-300 whitespace-pre-line mb-6 leading-relaxed">
                     {info.details}
                   </div>
                   {info.action && (
@@ -268,29 +270,29 @@ const Contact = () => {
             ))}
           </div>
 
-          {/* Department Directory */}
+          {/* Department Directory - Dark */}
           <div className="mb-20">
-            <h3 className="text-2xl font-bold text-gray-800 mb-6">Department Directory</h3>
+            <h3 className="text-2xl font-bold text-white mb-6">Department Directory</h3>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
               {departments.map((dept, idx) => (
-                <Card key={idx} className="bg-white/50 backdrop-blur-sm border-white/20 p-4 hover:shadow-lg transition-all">
+                <Card key={idx} className="bg-slate-800/50 backdrop-blur-sm border-white/10 p-4 hover:shadow-lg hover:border-blue-500/30 transition-all">
                   <div className="flex items-center gap-3 mb-3">
                     <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center text-white">
                       {dept.icon}
                     </div>
-                    <h4 className="font-semibold text-gray-800">{dept.name}</h4>
+                    <h4 className="font-semibold text-white">{dept.name}</h4>
                   </div>
-                  <p className="text-sm text-gray-600 mb-1">{dept.phone}</p>
+                  <p className="text-sm text-gray-400 mb-1">{dept.phone}</p>
                   <p className="text-xs text-gray-500">{dept.email}</p>
                 </Card>
               ))}
             </div>
           </div>
 
-          {/* Map Section */}
+          {/* Map Section - Dark */}
           <div className="mb-20">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-2xl font-bold text-gray-800">Our Location</h3>
+              <h3 className="text-2xl font-bold text-white">Our Location</h3>
               <Button
                 className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white hover:opacity-90"
                 onClick={() => window.open("https://maps.google.com/?q=700+West+Elm+Street+Dallas+TX", "_blank")}
@@ -299,7 +301,7 @@ const Contact = () => {
                 Open in Maps
               </Button>
             </div>
-            <div className="rounded-2xl overflow-hidden border border-white/20 shadow-xl">
+            <div className="rounded-2xl overflow-hidden border border-white/10 shadow-xl">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3354.466861115231!2d-96.80871042504955!3d32.7798782736625!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864e991648d85d11%3A0x8d3f52d0353e3971!2s700%20Elm%20St%2C%20Dallas%2C%20TX%2075202%2C%20USA!5e0!3m2!1sen!2s!4v1754234876996!5m2!1sen!2s"
                 width="100%"
@@ -313,13 +315,13 @@ const Contact = () => {
             </div>
           </div>
 
-          {/* Social Media & Facility Info */}
+          {/* Social Media & Facility Info - Dark */}
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Social Media */}
             <div className="lg:col-span-1">
-              <Card className="bg-white/70 backdrop-blur-xl border-white/20 p-8 h-full">
-                <h3 className="text-2xl font-bold text-gray-800 mb-6">Connect With Us</h3>
-                <p className="text-gray-600 mb-8">
+              <Card className="bg-slate-800/50 backdrop-blur-sm border-white/10 p-8 h-full">
+                <h3 className="text-2xl font-bold text-white mb-6">Connect With Us</h3>
+                <p className="text-gray-400 mb-8">
                   Follow us for health tips, medical updates, and community wellness events.
                 </p>
                 <div className="space-y-4 mb-8">
@@ -329,29 +331,29 @@ const Contact = () => {
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`w-full flex items-center justify-between p-4 rounded-xl bg-white/50 backdrop-blur-sm border border-white/20 transition-all duration-300 ${social.color} hover:border-blue-400/50 group`}
+                      className={`w-full flex items-center justify-between p-4 rounded-xl bg-slate-900/50 backdrop-blur-sm border border-white/10 transition-all duration-300 ${social.color} hover:border-blue-500/30 group`}
                     >
                       <div className="flex items-center gap-4">
-                        <div className="text-blue-500">
+                        <div className="text-blue-400">
                           {social.icon}
                         </div>
                         <div className="text-left">
-                          <p className="font-semibold text-gray-800">{social.platform}</p>
-                          <p className="text-gray-500 text-sm">{social.handle}</p>
+                          <p className="font-semibold text-white">{social.platform}</p>
+                          <p className="text-gray-400 text-sm">{social.handle}</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className="text-blue-500 text-sm font-medium">Follow</span>
+                        <span className="text-blue-400 text-sm font-medium">Follow</span>
                         <ExternalLink className="w-4 h-4 text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity" />
                       </div>
                     </a>
                   ))}
                 </div>
 
-                {/* Health Tips Preview */}
-                <div className="mt-8 pt-8 border-t border-white/20">
-                  <h4 className="font-semibold text-gray-800 mb-4">Health & Wellness Updates</h4>
-                  <ul className="space-y-3 text-gray-600">
+                {/* Health Tips Preview - Dark */}
+                <div className="mt-8 pt-8 border-t border-white/10">
+                  <h4 className="font-semibold text-white mb-4">Health & Wellness Updates</h4>
+                  <ul className="space-y-3 text-gray-400">
                     <li className="flex items-center gap-2">
                       <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full"></div>
                       <span>Weekly health tips from specialists</span>
@@ -373,16 +375,16 @@ const Contact = () => {
               </Card>
             </div>
 
-            {/* Facility Images Section */}
+            {/* Facility Images Section - Dark */}
             <div className="lg:col-span-2">
-              <Card className="bg-white/70 backdrop-blur-xl border-white/20 p-8">
-                <h3 className="text-2xl font-bold text-gray-800 mb-6">Our Medical Facility</h3>
-                <p className="text-gray-600 mb-8">
+              <Card className="bg-slate-800/50 backdrop-blur-sm border-white/10 p-8">
+                <h3 className="text-2xl font-bold text-white mb-6">Our Medical Facility</h3>
+                <p className="text-gray-400 mb-8">
                   A glimpse of our state-of-the-art facility, compassionate care spaces, and advanced medical equipment.
                 </p>
 
                 <div className="grid grid-cols-2 gap-6 mb-8">
-                  <div className="relative h-48 rounded-xl overflow-hidden border border-white/20 group">
+                  <div className="relative h-48 rounded-xl overflow-hidden border border-white/10 group">
                     <Image
                       src="/waiting-area.webp"
                       fill
@@ -391,7 +393,7 @@ const Contact = () => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>
-                  <div className="relative h-48 rounded-xl overflow-hidden border border-white/20 group">
+                  <div className="relative h-48 rounded-xl overflow-hidden border border-white/10 group">
                     <Image
                       src="/examination-room.webp"
                       fill
@@ -400,7 +402,7 @@ const Contact = () => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>
-                  <div className="relative h-48 rounded-xl overflow-hidden border border-white/20 group">
+                  <div className="relative h-48 rounded-xl overflow-hidden border border-white/10 group">
                     <Image
                       src="/mri-machine.webp"
                       fill
@@ -409,7 +411,7 @@ const Contact = () => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>
-                  <div className="relative h-48 rounded-xl overflow-hidden border border-white/20 group">
+                  <div className="relative h-48 rounded-xl overflow-hidden border border-white/10 group">
                     <Image
                       src="/pharmacy.webp"
                       fill
@@ -420,9 +422,9 @@ const Contact = () => {
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl p-6 border border-blue-100">
-                  <h4 className="text-lg font-bold text-gray-800 mb-3">Visit Our Medical Center</h4>
-                  <p className="text-gray-600">
+                <div className="bg-slate-800 rounded-xl p-6 border border-white/10">
+                  <h4 className="text-lg font-bold text-white mb-3">Visit Our Medical Center</h4>
+                  <p className="text-gray-400">
                     Experience healthcare reimagined. From our welcoming waiting areas to our advanced treatment rooms,
                     every space is designed with your comfort and care in mind.
                   </p>
@@ -431,9 +433,9 @@ const Contact = () => {
             </div>
           </div>
 
-          {/* Quick Actions Bar */}
-          <div className="mt-16 p-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl shadow-xl relative overflow-hidden">
-            <div className="absolute inset-0 bg-white/10 backdrop-blur-sm"></div>
+          {/* Quick Actions Bar - Dark Gradient */}
+          <div className="mt-16 p-8 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl shadow-xl relative overflow-hidden">
+            <div className="absolute inset-0 bg-black/20"></div>
             <div className="relative z-10 grid md:grid-cols-3 gap-8">
               <div className="text-center">
                 <h4 className="text-xl font-bold text-white mb-3">24/7 Emergency</h4>
@@ -441,13 +443,13 @@ const Contact = () => {
               </div>
               <div className="text-center">
                 <h4 className="text-xl font-bold text-white mb-3">Secure Portal</h4>
-                <Button className="bg-white text-blue-600 hover:bg-blue-50">
+                <Button className="bg-white text-blue-600 hover:bg-gray-100">
                   Patient Login
                 </Button>
               </div>
               <div className="text-center">
                 <h4 className="text-xl font-bold text-white mb-3">Find a Doctor</h4>
-                <Button className="bg-white text-blue-600 hover:bg-blue-50">
+                <Button className="bg-white text-blue-600 hover:bg-gray-100">
                   Search
                 </Button>
               </div>
@@ -456,8 +458,8 @@ const Contact = () => {
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="bg-gradient-to-br from-slate-900 to-slate-950 text-white py-12 px-4 relative overflow-hidden">
+      {/* Footer - Dark */}
+      <footer className="bg-slate-950 text-white py-12 px-4 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('/medical-pattern.svg')] opacity-5"></div>
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-center">
@@ -466,13 +468,13 @@ const Contact = () => {
                 <Heart className="w-8 h-8 text-blue-400" />
                 <span className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Maloof Health</span>
               </div>
-              <p className="text-gray-400">
+              <p className="text-gray-500">
                 Your trusted partner in health and wellness
               </p>
             </div>
             <Infopanel />
           </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+          <div className="border-t border-slate-800 mt-8 pt-8 text-center text-gray-500">
             <p>&copy; {new Date().getFullYear()} Maloof Health Systems. All rights reserved.</p>
           </div>
         </div>

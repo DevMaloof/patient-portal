@@ -40,7 +40,7 @@ import {
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { Button } from "@/components/ui/button";
-import Reserve from "@/components/reserve"; // Keep your existing component
+import Reserve from "@/components/reserve";
 import Infopanel from "@/components/infopanel";
 import Dialogcode from "@/components/dialog";
 import LogoText from "@/components/logotextwhite";
@@ -59,10 +59,9 @@ export default function Home() {
   const { data: session } = useSession();
   const autoplayPlugin = useRef(Autoplay({ delay: 5000, stopOnInteraction: false }));
 
-  // Healthcare-focused slides
   const slides = [
     {
-      img: "/hospital-exterior.webp", // You'll need to update images
+      img: "/hospital-exterior.webp",
       title: "Welcome to Maloof Health",
       desc: "Where Compassion Meets Advanced Medical Excellence",
       highlight: "Est. 1995 | Accredited"
@@ -81,7 +80,6 @@ export default function Home() {
     },
   ];
 
-  // Healthcare features
   const features = [
     {
       icon: Clock,
@@ -113,7 +111,6 @@ export default function Home() {
     },
   ];
 
-  // Medical Services/Specialties
   const medicalServices = [
     {
       title: "Primary Care",
@@ -145,7 +142,6 @@ export default function Home() {
     },
   ];
 
-  // Why Choose Us Section
   const whyChooseUs = [
     {
       title: "Patient-First Approach",
@@ -169,7 +165,6 @@ export default function Home() {
     },
   ];
 
-  // Testimonials
   const testimonials = [
     {
       name: "Sarah Johnson",
@@ -194,7 +189,6 @@ export default function Home() {
     },
   ];
 
-  // Email validation function
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email) {
@@ -206,7 +200,6 @@ export default function Home() {
     return "";
   };
 
-  // Lock scroll initially
   useEffect(() => {
     if (!scrollEnabled) {
       document.body.style.overflow = "hidden";
@@ -218,16 +211,13 @@ export default function Home() {
     };
   }, [scrollEnabled]);
 
-  // Simulate loading
   useEffect(() => {
     const timeout = setTimeout(() => setLoading(false), 1500);
     return () => clearTimeout(timeout);
   }, []);
 
-  // GSAP animations (updated with healthcare theme)
   useEffect(() => {
     if (!loading) {
-      // Hero animations
       gsap.fromTo(
         ".hero-title",
         { opacity: 0, y: 30 },
@@ -249,7 +239,6 @@ export default function Home() {
         }
       );
 
-      // Services cards animation
       gsap.fromTo(
         ".service-card",
         { opacity: 0, y: 30 },
@@ -265,7 +254,6 @@ export default function Home() {
         }
       );
 
-      // Testimonials animation
       gsap.fromTo(
         ".testimonial-card",
         { opacity: 0, x: -20 },
@@ -351,7 +339,6 @@ export default function Home() {
     return (
       <div className="h-screen w-full flex flex-col items-center justify-center bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
         <div className="relative w-32 h-32 mb-8">
-          {/* Modern healthcare loader with glassmorphism */}
           <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full blur-xl opacity-50 animate-pulse"></div>
           <div className="absolute inset-0 border-4 border-blue-200/30 border-t-blue-400 rounded-full animate-spin backdrop-blur-sm"></div>
           <Heart className="absolute inset-0 m-auto text-white w-16 h-16 animate-pulse" />
@@ -369,9 +356,11 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50">
-      {/* Navigation with glassmorphism */}
-      <nav className="fixed top-0 w-full bg-white/25 backdrop-blur-2xl z-50 border-b border-white/20 shadow-lg">
+    // ✅ Fixed: Explicit background that doesn't rely on browser theme
+    <div className="min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-slate-900 to-slate-800 text-white">
+
+      {/* Navigation with glassmorphism - fixed colors */}
+      <nav className="fixed top-0 w-full bg-slate-900/90 backdrop-blur-xl z-50 border-b border-white/10 shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <LogoText />
@@ -380,7 +369,7 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Hero Carousel with modern healthcare styling */}
+      {/* Hero Carousel - dark overlay for text readability */}
       <div ref={heroRef} className="h-screen w-full relative">
         <Carousel
           plugins={[autoplayPlugin.current]}
@@ -393,22 +382,22 @@ export default function Home() {
                   <Image
                     src={slide.img}
                     fill
-                    className="object-cover brightness-90"
+                    className="object-cover brightness-50"
                     alt={slide.title}
                     priority
                   />
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 via-blue-900/40 to-transparent" />
+                  {/* Dark overlay instead of gradient */}
+                  <div className="absolute inset-0 bg-black/50" />
                   <div className="absolute inset-0 flex items-center">
                     <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full">
                       <div className="max-w-2xl">
-                        {/* Glassmorphism badge */}
                         <span className="inline-block px-4 py-2 bg-white/20 backdrop-blur-md rounded-full text-white text-sm font-medium mb-6 border border-white/30 shadow-xl">
                           {slide.highlight}
                         </span>
                         <h1 className="hero-title text-5xl md:text-7xl font-bold text-white mb-4 leading-tight">
                           {slide.title}
                         </h1>
-                        <p className="hero-title text-xl md:text-2xl text-blue-50 mb-8 font-light">
+                        <p className="hero-title text-xl md:text-2xl text-white/90 mb-8 font-light">
                           {slide.desc}
                         </p>
                         <Button
@@ -426,23 +415,19 @@ export default function Home() {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="absolute left-4 bg-white/30 backdrop-blur-md hover:bg-white/40 text-white border-white/30 shadow-xl" />
-          <CarouselNext className="absolute right-4 bg-white/30 backdrop-blur-md hover:bg-white/40 text-white border-white/30 shadow-xl" />
+          <CarouselPrevious className="absolute left-4 bg-black/50 backdrop-blur-md hover:bg-black/70 text-white border-white/30 shadow-xl" />
+          <CarouselNext className="absolute right-4 bg-black/50 backdrop-blur-md hover:bg-black/70 text-white border-white/30 shadow-xl" />
         </Carousel>
       </div>
 
-      {/* Features Section with glassmorphism cards */}
-      <div id="services-section" className="py-20 px-4 relative overflow-hidden">
-        {/* Background gradient effects */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-cyan-50"></div>
-        <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-blue-100/50 to-transparent"></div>
-
+      {/* Features Section - dark theme consistent */}
+      <div id="services-section" className="py-20 px-4 relative overflow-hidden bg-slate-900">
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-4">
               Why Choose Maloof Health
             </h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-300 text-lg max-w-2xl mx-auto">
               Experience healthcare redefined with our commitment to excellence in every aspect of your care
             </p>
           </div>
@@ -450,18 +435,17 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 features-section">
             {features.map((feature, idx) => (
               <div key={idx} className="feature-card group">
-                <Card className="bg-white/70 backdrop-blur-xl border-white/20 shadow-xl hover:shadow-2xl transition-all duration-300 p-8 text-center h-full relative overflow-hidden group">
-                  {/* Gradient overlay on hover */}
+                <Card className="bg-slate-800/50 backdrop-blur-sm border-slate-700 shadow-xl hover:shadow-2xl transition-all duration-300 p-8 text-center h-full relative overflow-hidden group">
                   <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
 
                   <div className="relative z-10">
-                    <div className={`inline-flex p-4 rounded-2xl bg-gradient-to-br ${feature.gradient} mb-6`}>
+                    <div className={`inline-flex p-4 rounded-2xl bg-slate-700/50 mb-6`}>
                       <feature.icon className={`w-8 h-8 ${feature.color}`} />
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                    <h3 className="text-xl font-semibold text-white mb-2">
                       {feature.title}
                     </h3>
-                    <p className="text-gray-600">
+                    <p className="text-gray-400">
                       {feature.description}
                     </p>
                   </div>
@@ -472,20 +456,14 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Medical Services Section */}
-      <div className="py-20 px-4 relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
-        {/* Animated background elements */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
-          <div className="absolute top-40 right-10 w-72 h-72 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
-        </div>
-
+      {/* Medical Services Section - already dark, keep as is */}
+      <div className="py-20 px-4 relative overflow-hidden bg-slate-800">
         <div className="max-w-7xl mx-auto relative z-10 services-section">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
               Our <span className="text-transparent bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text">Medical Services</span>
             </h2>
-            <p className="text-blue-100/80 text-lg max-w-3xl mx-auto">
+            <p className="text-gray-300 text-lg max-w-3xl mx-auto">
               Comprehensive healthcare services delivered with compassion and cutting-edge technology
             </p>
           </div>
@@ -493,36 +471,32 @@ export default function Home() {
           <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
             {medicalServices.map((service, idx) => (
               <div key={idx} className="service-card">
-                <Card className="bg-white/10 backdrop-blur-xl border-white/20 hover:bg-white/20 transition-all duration-300 overflow-hidden group">
+                <Card className="bg-slate-700/50 backdrop-blur-sm border-slate-600 hover:bg-slate-700 transition-all duration-300 overflow-hidden group">
                   <div className="flex flex-col md:flex-row">
-                    <div className="md:w-2/5 relative h-48 md:h-auto overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 to-transparent z-10" />
-                      <div className="relative w-full h-full">
-                        {/* Image placeholder - replace with actual images */}
-                        <div className="w-full h-full bg-gradient-to-br from-blue-500/20 to-cyan-500/20 flex items-center justify-center">
-                          {service.icon}
-                        </div>
+                    <div className="md:w-2/5 relative h-48 md:h-auto overflow-hidden bg-slate-800">
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent z-10" />
+                      <div className="relative w-full h-full bg-gradient-to-br from-blue-500/20 to-cyan-500/20 flex items-center justify-center">
+                        {service.icon}
                       </div>
-                      {/* Stats badge */}
                       <div className="absolute bottom-4 left-4 z-20">
-                        <span className="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-xs font-medium border border-white/30">
+                        <span className="px-3 py-1 bg-slate-900/80 backdrop-blur-md rounded-full text-white text-xs font-medium border border-white/20">
                           {service.stats}
                         </span>
                       </div>
                     </div>
                     <div className="md:w-3/5 p-6">
                       <div className="flex items-center gap-3 mb-4">
-                        <div className="w-12 h-12 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
+                        <div className="w-12 h-12 bg-slate-800 rounded-xl flex items-center justify-center">
                           {service.icon}
                         </div>
                         <h3 className="text-2xl font-bold text-white">{service.title}</h3>
                       </div>
-                      <p className="text-blue-100/80 leading-relaxed mb-4">
+                      <p className="text-gray-300 leading-relaxed mb-4">
                         {service.description}
                       </p>
                       <Button
                         variant="ghost"
-                        className="text-blue-300 hover:text-white hover:bg-white/10 px-0"
+                        className="text-blue-400 hover:text-blue-300 hover:bg-slate-800 px-0"
                       >
                         Learn more <ChevronRight className="ml-1 w-4 h-4" />
                       </Button>
@@ -535,19 +509,19 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Why Choose Us Section */}
-      <div className="py-20 px-4 bg-gradient-to-br from-white to-blue-50">
+      {/* Why Choose Us Section - dark theme */}
+      <div className="py-20 px-4 bg-slate-900">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
                   Committed to Your
                 </span>
                 <br />
-                <span className="text-gray-800">Health & Wellbeing</span>
+                <span className="text-white">Health & Wellbeing</span>
               </h2>
-              <p className="text-gray-600 text-lg mb-8">
+              <p className="text-gray-300 text-lg mb-8">
                 At Maloof Health, we believe in providing not just medical care, but a holistic healthcare experience that puts you at the center of everything we do.
               </p>
 
@@ -555,13 +529,13 @@ export default function Home() {
                 {whyChooseUs.map((item, idx) => (
                   <div key={idx} className="flex gap-4">
                     <div className="flex-shrink-0">
-                      <div className="w-12 h-12 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 rounded-xl flex items-center justify-center backdrop-blur-sm">
+                      <div className="w-12 h-12 bg-slate-800 rounded-xl flex items-center justify-center">
                         {item.icon}
                       </div>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-gray-800 mb-1">{item.title}</h4>
-                      <p className="text-sm text-gray-600">{item.description}</p>
+                      <h4 className="font-semibold text-white mb-1">{item.title}</h4>
+                      <p className="text-sm text-gray-400">{item.description}</p>
                     </div>
                   </div>
                 ))}
@@ -570,27 +544,27 @@ export default function Home() {
 
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-3xl blur-3xl opacity-20"></div>
-              <Card className="relative bg-white/70 backdrop-blur-xl border-white/20 shadow-2xl p-8">
+              <Card className="relative bg-slate-800/80 backdrop-blur-xl border-slate-700 shadow-2xl p-8">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center">
                     <Heart className="w-8 h-8 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold text-gray-800">Patient Stories</h3>
-                    <p className="text-gray-600">Real experiences from our community</p>
+                    <h3 className="text-2xl font-bold text-white">Patient Stories</h3>
+                    <p className="text-gray-400">Real experiences from our community</p>
                   </div>
                 </div>
 
                 <div className="space-y-6">
                   {testimonials.map((testimonial, idx) => (
-                    <div key={idx} className="flex gap-4 p-4 bg-white/50 backdrop-blur-sm rounded-xl border border-white/20">
+                    <div key={idx} className="flex gap-4 p-4 bg-slate-700/50 backdrop-blur-sm rounded-xl border border-slate-600">
                       <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white font-bold">
                         {testimonial.name.charAt(0)}
                       </div>
                       <div>
-                        <p className="text-gray-700 text-sm mb-2">{testimonial.content}</p>
-                        <p className="text-sm font-semibold text-gray-800">{testimonial.name}</p>
-                        <p className="text-xs text-gray-500">{testimonial.role}</p>
+                        <p className="text-gray-300 text-sm mb-2">{testimonial.content}</p>
+                        <p className="text-sm font-semibold text-white">{testimonial.name}</p>
+                        <p className="text-xs text-gray-400">{testimonial.role}</p>
                       </div>
                     </div>
                   ))}
@@ -601,20 +575,16 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Newsletter Section */}
-      <div className="py-20 px-4 relative overflow-hidden">
-        {/* Background with glassmorphism effect */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-blue-500 to-cyan-500"></div>
-        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
-
+      {/* Newsletter Section - dark theme */}
+      <div className="py-20 px-4 relative overflow-hidden bg-gradient-to-br from-slate-800 to-slate-900">
         <div className="max-w-4xl mx-auto relative z-10">
-          <Card className="p-8 md:p-12 bg-white/10 backdrop-blur-xl border-white/20 shadow-2xl rounded-3xl">
+          <Card className="p-8 md:p-12 bg-slate-800/50 backdrop-blur-xl border-slate-700 shadow-2xl rounded-3xl">
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
                 <h3 className="text-3xl font-bold text-white mb-4">
                   Stay Healthy, Stay Informed
                 </h3>
-                <p className="text-blue-100 mb-6">
+                <p className="text-gray-300 mb-6">
                   Subscribe to our health newsletter for wellness tips, medical updates, and exclusive health resources from our specialists.
                 </p>
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -624,20 +594,20 @@ export default function Home() {
                       placeholder="Your email address"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className={`w-full h-12 rounded-xl bg-white/10 backdrop-blur-sm border-white/20 text-white placeholder-blue-200/60 focus:border-white/40 ${emailError ? "border-rose-400" : ""}`}
+                      className={`w-full h-12 rounded-xl bg-slate-900/50 backdrop-blur-sm border-slate-600 text-white placeholder-gray-400 focus:border-blue-500 ${emailError ? "border-rose-500" : ""}`}
                     />
                     {emailError && (
-                      <p className="text-rose-300 text-sm mt-2 ml-2">{emailError}</p>
+                      <p className="text-rose-400 text-sm mt-2 ml-2">{emailError}</p>
                     )}
                   </div>
                   <Button
                     type="submit"
-                    className="w-full h-12 rounded-xl bg-white text-blue-600 hover:bg-blue-50 font-semibold shadow-xl"
+                    className="w-full h-12 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-semibold shadow-xl"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? (
                       <div className="flex items-center justify-center gap-2">
-                        <div className="w-5 h-5 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
+                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
                         Subscribing...
                       </div>
                     ) : (
@@ -646,19 +616,13 @@ export default function Home() {
                   </Button>
                 </form>
               </div>
-              <div className="relative h-64 md:h-full rounded-2xl overflow-hidden border border-white/20 backdrop-blur-sm">
+              <div className="relative h-64 md:h-full rounded-2xl overflow-hidden border border-slate-600 backdrop-blur-sm">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 z-10" />
-                <div className="relative w-full h-full bg-white/5 flex items-center justify-center">
-                  <Image
-                    src={"/health-newsletter.webp"} // You'll need to update this image
-                    alt="health newsletter"
-                    fill
-                    className="object-cover opacity-50"
-                  />
+                <div className="relative w-full h-full bg-slate-900/50 flex items-center justify-center">
                   <div className="text-center p-6 absolute z-20">
-                    <Heart className="w-16 h-16 text-white mx-auto mb-4" />
+                    <Heart className="w-16 h-16 text-blue-400 mx-auto mb-4" />
                     <h4 className="text-xl font-bold text-white mb-2">Wellness Weekly</h4>
-                    <p className="text-blue-100 text-sm">
+                    <p className="text-gray-300 text-sm">
                       Get expert health tips, updates, and special offers delivered to your inbox.
                     </p>
                   </div>
@@ -669,32 +633,30 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Keep your existing components - they still work! */}
       <Reserve />
 
-      {/* Footer with healthcare theme */}
-      <footer className="bg-gradient-to-br from-slate-900 to-slate-950 text-white py-12 px-4 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/medical-pattern.svg')] opacity-5"></div>
-        <div className="max-w-7xl mx-auto relative z-10">
+      {/* Footer - already dark, keep as is */}
+      <footer className="bg-slate-950 text-white py-12 px-4">
+        <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-8 md:mb-0">
               <div className="flex items-center space-x-2 mb-4">
                 <Heart className="w-8 h-8 text-blue-400" />
                 <span className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Maloof Health</span>
               </div>
-              <p className="text-gray-400">
+              <p className="text-gray-500">
                 Your trusted partner in health and wellness since 1995
               </p>
             </div>
             <Infopanel />
           </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+          <div className="border-t border-slate-800 mt-8 pt-8 text-center text-gray-500">
             <p>&copy; {new Date().getFullYear()} Maloof Health Systems. All rights reserved.</p>
             <p className="text-sm mt-2 flex items-center justify-center gap-4">
               <span>700 West Elm Street, Dallas, TX 75201</span>
-              <span className="w-1 h-1 bg-gray-600 rounded-full"></span>
+              <span className="w-1 h-1 bg-gray-700 rounded-full"></span>
               <span>(214) 555-0423</span>
-              <span className="w-1 h-1 bg-gray-600 rounded-full"></span>
+              <span className="w-1 h-1 bg-gray-700 rounded-full"></span>
               <span>24/7 Emergency: (214) 555-0911</span>
             </p>
           </div>

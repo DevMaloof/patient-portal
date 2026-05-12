@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import Dialogcode from "@/components/dialog";
 import LogoTextWhite from "@/components/logotextwhite";
+import Infopanel from "@/components/infopanel";
 
 const About = () => {
   const [loading, setLoading] = useState(true);
@@ -156,9 +157,11 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full  bg-white/25 backdrop-blur-2xl z-50 border-b border-white/20 shadow-lg">
+    // ✅ Dark theme root
+    <div className="min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white">
+
+      {/* Navigation - Dark glassmorphism */}
+      <nav className="fixed top-0 w-full bg-slate-900/80 backdrop-blur-xl z-50 border-b border-white/10 shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <LogoTextWhite />
@@ -173,7 +176,7 @@ const About = () => {
           <Image
             src="/medical-team-hero.webp"
             fill
-            className="object-cover brightness-75"
+            className="object-cover brightness-50"
             alt="Maloof Health Medical Team"
             priority
           />
@@ -199,7 +202,7 @@ const About = () => {
                   </Button>
                 </Link>
                 <Link href="/contact">
-                  <Button variant="ghost" className="bg-white/30 text-white px-8 py-6 text-lg backdrop-blur-sm">
+                  <Button variant="outline" className="border-white/30 text-white hover:bg-white/10 px-8 py-6 text-lg backdrop-blur-sm">
                     Meet Our Team
                   </Button>
                 </Link>
@@ -209,8 +212,8 @@ const About = () => {
         </div>
       </div>
 
-      {/* Stats Section */}
-      <div className="py-16 px-4 bg-gradient-to-r from-blue-50 to-cyan-50">
+      {/* Stats Section - Dark */}
+      <div className="py-16 px-4 bg-slate-800">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {healthcareStats.map((stat, idx) => (
@@ -220,24 +223,24 @@ const About = () => {
                     {stat.icon}
                   </div>
                 </div>
-                <div className="text-4xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent mb-2">
+                <div className="text-4xl font-bold text-white mb-2">
                   {stat.value}
                 </div>
-                <p className="text-gray-600 text-sm">{stat.label}</p>
+                <p className="text-gray-400 text-sm">{stat.label}</p>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="py-20 px-4">
+      {/* Main Content - Dark */}
+      <div className="py-20 px-4 bg-slate-900">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-4">
+            <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-4">
               Our Story & Mission
             </h2>
-            <p className="text-gray-600 text-lg max-w-3xl mx-auto">
+            <p className="text-gray-400 text-lg max-w-3xl mx-auto">
               Discover what makes Maloof Health more than just a medical center — it's a Dallas healthcare tradition
             </p>
           </div>
@@ -246,7 +249,7 @@ const About = () => {
             {aboutSections.map((section, idx) => (
               <div
                 key={idx}
-                className="bg-white/70 backdrop-blur-xl border border-white/20 rounded-3xl p-8 md:p-12 transition-all duration-300 hover:shadow-2xl group relative overflow-hidden"
+                className="bg-slate-800/50 backdrop-blur-sm border border-white/10 rounded-3xl p-8 md:p-12 transition-all duration-300 hover:shadow-2xl hover:border-blue-500/30 group relative overflow-hidden"
               >
                 <div className={`absolute inset-0 bg-gradient-to-br ${section.accentColor} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
 
@@ -257,10 +260,10 @@ const About = () => {
                     </div>
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">
+                    <h3 className="text-2xl md:text-3xl font-bold text-white mb-6">
                       {section.title}
                     </h3>
-                    <p className="text-gray-600 text-lg leading-relaxed">
+                    <p className="text-gray-300 text-lg leading-relaxed">
                       {section.content}
                     </p>
                   </div>
@@ -271,57 +274,57 @@ const About = () => {
         </div>
       </div>
 
-      {/* Our Values */}
-      <div className="py-20 px-4 bg-gradient-to-br from-blue-50 to-cyan-50">
+      {/* Our Values - Dark */}
+      <div className="py-20 px-4 bg-slate-800">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-800 mb-4">
-              Our Core <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Values</span>
+            <h2 className="text-4xl font-bold text-white mb-4">
+              Our Core <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Values</span>
             </h2>
-            <p className="text-gray-600 text-lg max-w-3xl mx-auto">
+            <p className="text-gray-400 text-lg max-w-3xl mx-auto">
               The principles that guide everything we do
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, idx) => (
-              <Card key={idx} className="bg-white/70 backdrop-blur-xl border-white/20 p-8 hover:shadow-2xl transition-all duration-300 group">
+              <Card key={idx} className="bg-slate-900/50 backdrop-blur-sm border-white/10 p-8 hover:shadow-2xl hover:border-blue-500/30 transition-all duration-300 group">
                 <div className={`w-16 h-16 bg-gradient-to-br ${value.gradient} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
                   {value.icon}
                 </div>
-                <h3 className="text-xl font-bold text-gray-800 mb-3">{value.title}</h3>
-                <p className="text-gray-600">{value.description}</p>
+                <h3 className="text-xl font-bold text-white mb-3">{value.title}</h3>
+                <p className="text-gray-400">{value.description}</p>
               </Card>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Leadership Team */}
-      <div className="py-20 px-4">
+      {/* Leadership Team - Dark */}
+      <div className="py-20 px-4 bg-slate-900">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-800 mb-4">
-              Meet Our <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Leadership</span>
+            <h2 className="text-4xl font-bold text-white mb-4">
+              Meet Our <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Leadership</span>
             </h2>
-            <p className="text-gray-600 text-lg max-w-3xl mx-auto">
+            <p className="text-gray-400 text-lg max-w-3xl mx-auto">
               Dedicated professionals committed to your health
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {leadership.map((leader, idx) => (
-              <Card key={idx} className="bg-white/70 backdrop-blur-xl border-white/20 overflow-hidden hover:shadow-2xl transition-all duration-300 group">
+              <Card key={idx} className="bg-slate-800/50 backdrop-blur-sm border-white/10 overflow-hidden hover:shadow-2xl hover:border-blue-500/30 transition-all duration-300 group">
                 <div className="relative h-64 overflow-hidden">
                   <div className={`absolute inset-0 bg-gradient-to-br ${leader.gradient} opacity-20 group-hover:opacity-30 transition-opacity`} />
-                  <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
-                    <Stethoscope className="w-16 h-16 text-gray-400" />
+                  <div className="w-full h-full bg-gradient-to-br from-slate-700 to-slate-800 flex items-center justify-center">
+                    <Stethoscope className="w-16 h-16 text-gray-500" />
                   </div>
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-800 mb-1">{leader.name}</h3>
-                  <p className="text-blue-600 font-medium mb-2">{leader.role}</p>
-                  <p className="text-sm text-gray-500">Specialty: {leader.specialty}</p>
+                  <h3 className="text-xl font-bold text-white mb-1">{leader.name}</h3>
+                  <p className="text-blue-400 font-medium mb-2">{leader.role}</p>
+                  <p className="text-sm text-gray-400">Specialty: {leader.specialty}</p>
                 </div>
               </Card>
             ))}
@@ -329,8 +332,8 @@ const About = () => {
         </div>
       </div>
 
-      {/* Accreditations */}
-      <div className="py-12 px-4 bg-gradient-to-r from-blue-500 to-cyan-500">
+      {/* Accreditations - Dark Gradient */}
+      <div className="py-12 px-4 bg-gradient-to-r from-blue-600 to-cyan-600">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-wrap justify-center items-center gap-8">
             <div className="text-white text-center">
@@ -353,16 +356,16 @@ const About = () => {
         </div>
       </div>
 
-      {/* Visit Invitation */}
-      <div className="py-20 px-4 bg-gradient-to-br from-white to-blue-50">
+      {/* Visit Invitation - Dark */}
+      <div className="py-20 px-4 bg-slate-900">
         <div className="max-w-4xl mx-auto text-center">
           <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-8 shadow-xl">
             <MapPin className="w-12 h-12 text-white" />
           </div>
-          <h2 className="text-4xl font-bold text-gray-800 mb-6">
+          <h2 className="text-4xl font-bold text-white mb-6">
             Visit Our Medical Center
           </h2>
-          <p className="text-gray-600 text-xl mb-10 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-gray-300 text-xl mb-10 max-w-3xl mx-auto leading-relaxed">
             Located in the heart of Dallas, we welcome you to experience healthcare that puts you first.
             Whether you're visiting for a consultation, treatment, or just to learn more about our services,
             our doors are always open.
@@ -375,8 +378,8 @@ const About = () => {
         </div>
       </div>
 
-      {/* Thank You Section */}
-      <div className="py-20 px-4 bg-gradient-to-br from-slate-900 to-slate-950 relative overflow-hidden">
+      {/* Thank You Section - Dark */}
+      <div className="py-20 px-4 bg-slate-950 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500 rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-cyan-500 rounded-full blur-3xl"></div>
@@ -386,19 +389,40 @@ const About = () => {
           <h3 className="text-3xl font-bold text-white mb-8">
             Thank You for Trusting Us
           </h3>
-          <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-12">
+          <div className="bg-slate-800/50 backdrop-blur-xl border border-white/10 rounded-3xl p-12">
             <Heart className="w-16 h-16 text-blue-400 mx-auto mb-6" />
-            <p className="text-blue-100 text-xl leading-relaxed italic">
+            <p className="text-gray-300 text-xl leading-relaxed italic">
               "To our patients — thank you for allowing us to be part of your health journey.
               Every life we touch, every recovery we witness, every smile we see — you are the
               reason we do what we do. Your trust inspires us to be better every day."
             </p>
-            <div className="mt-8 pt-8 border-t border-white/20">
-              <p className="text-blue-300 font-semibold">— The Maloof Health Team</p>
+            <div className="mt-8 pt-8 border-t border-white/10">
+              <p className="text-blue-400 font-semibold">— The Maloof Health Team</p>
             </div>
           </div>
         </div>
       </div>
+      {/* Footer - Dark */}
+      <footer className="bg-slate-950 text-white py-12 px-4 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('/medical-pattern.svg')] opacity-5"></div>
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="mb-8 md:mb-0">
+              <div className="flex items-center space-x-2 mb-4">
+                <Heart className="w-8 h-8 text-blue-400" />
+                <span className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Maloof Health</span>
+              </div>
+              <p className="text-gray-500">
+                Your trusted partner in health and wellness
+              </p>
+            </div>
+            <Infopanel />
+          </div>
+          <div className="border-t border-slate-800 mt-8 pt-8 text-center text-gray-500">
+            <p>&copy; {new Date().getFullYear()} Maloof Health Systems. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };

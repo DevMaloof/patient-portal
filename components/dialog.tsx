@@ -63,59 +63,49 @@ const Dialogcode = () => {
 
   return (
     <>
-      {/* Profile Button - Healthcare Style */}
+      {/* Profile Button - Compact */}
       <button
         onClick={() => setIsOpen(true)}
-        className="bg-white/20 flex items-center space-x-3 p-2 rounded-lg text-gray-800 font-medium backdrop-blur-sm"
+        className="bg-slate-800/80 hover:bg-slate-700/80 flex items-center space-x-2 p-1.5 rounded-lg text-white font-medium backdrop-blur-sm border border-white/10 transition-all duration-300"
       >
-        <div className="relative w-10 h-10 rounded-full overflow-hidden ring-2 ring-blue-400/50 group-hover:ring-blue-400 transition-all">
+        <div className="relative w-8 h-8 rounded-full overflow-hidden ring-2 ring-blue-400/50 transition-all">
           <Image
             src={user?.image || "/UserImage.png"}
             alt="Profile"
             fill
             className="object-cover"
           />
-          {/* Online status indicator */}
           {isAuthenticated && (
-            <div className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-400 rounded-full ring-2 ring-white"></div>
+            <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 rounded-full ring-1 ring-slate-800"></div>
           )}
         </div>
         <div className="hidden md:block text-left">
-          <p className="text-sm font-bold text-blue-400">
+          <p className="text-sm font-semibold text-white">
             {user?.name?.split(" ")[0] || "Guest"}
           </p>
           <p className="text-xs font-medium text-blue-400">
-            {isAuthenticated ? "Patient Portal" : "Sign In"}
+            {isAuthenticated ? "Patient" : "Sign In"}
           </p>
         </div>
       </button>
 
-      {/* Dialog - Healthcare Style with Glassmorphism */}
+      {/* Dialog - Smaller & Compact */}
       <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" />
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm" />
         <div className="fixed inset-0 flex items-center justify-center p-4">
-          <DialogPanel className="w-full max-w-md rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 p-6 shadow-2xl">
+          <DialogPanel className="w-full max-w-sm rounded-xl bg-slate-900/95 backdrop-blur-xl border border-white/10 p-5 shadow-2xl">
             {/* Close button */}
             <button
               onClick={() => setIsOpen(false)}
-              className="absolute top-4 right-4 text-white/60 hover:text-white transition-colors"
+              className="absolute top-3 right-3 text-gray-500 hover:text-white transition-colors"
             >
-              <X className="w-5 h-5" />
+              <X className="w-4 h-4" />
             </button>
 
-            <div className="flex justify-between items-start mb-6">
-              <div>
-                <h2 className="text-2xl font-bold text-white">Patient Portal</h2>
-                <p className="text-blue-200">
-                  {isAuthenticated ? "Manage your health profile" : "Access your health records"}
-                </p>
-              </div>
-            </div>
-
-            {/* Profile Image with Healthcare styling */}
-            <div className="flex flex-col items-center mb-8">
-              <div className="relative mb-4 group">
-                <div className="w-32 h-32 rounded-full overflow-hidden ring-4 ring-blue-400/30 group-hover:ring-blue-400/50 transition-all">
+            {/* Profile Section - Compact */}
+            <div className="flex flex-col items-center mb-4">
+              <div className="relative mb-2 group">
+                <div className="w-20 h-20 rounded-full overflow-hidden ring-3 ring-blue-400/30 group-hover:ring-blue-400/50 transition-all">
                   <Image
                     src={user?.image || "/UserImage.png"}
                     alt="Profile"
@@ -124,13 +114,13 @@ const Dialogcode = () => {
                   />
                   {isUploading && (
                     <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                      <div className="w-8 h-8 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
                     </div>
                   )}
                 </div>
                 {isAuthenticated && (
-                  <label className="absolute bottom-0 right-0 bg-gradient-to-r from-blue-500 to-cyan-500 text-white p-2 rounded-full cursor-pointer hover:shadow-lg hover:scale-110 transition-all duration-300">
-                    <User className="w-4 h-4" />
+                  <label className="absolute bottom-0 right-0 bg-gradient-to-r from-blue-500 to-cyan-500 text-white p-1.5 rounded-full cursor-pointer hover:shadow-lg hover:scale-110 transition-all duration-300">
+                    <User className="w-3 h-3" />
                     <input
                       type="file"
                       accept="image/*"
@@ -140,127 +130,128 @@ const Dialogcode = () => {
                     />
                   </label>
                 )}
-                {/* Health indicator */}
                 {isAuthenticated && (
-                  <div className="absolute -top-1 -right-1 w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center text-white text-xs border-2 border-white">
+                  <div className="absolute -top-1 -right-1 w-5 h-5 bg-emerald-500 rounded-full flex items-center justify-center text-white text-[10px] border-2 border-slate-900">
                     ✓
                   </div>
                 )}
               </div>
               <div className="text-center">
-                <p className="text-xl font-semibold text-white">
-                  {user?.name || "Guest User"}
+                <p className="text-base font-semibold text-white">
+                  {user?.name?.split(" ")[0] || "Guest"}
                 </p>
-                <p className="text-blue-200">{user?.email || ""}</p>
+                <p className="text-xs text-gray-400 truncate max-w-[180px]">{user?.email || ""}</p>
                 {isAuthenticated && (
-                  <span className="inline-flex items-center gap-1 mt-2 px-3 py-1 bg-emerald-500/20 rounded-full text-emerald-300 text-xs border border-emerald-500/30">
-                    <Heart className="w-3 h-3" />
-                    Active Patient
+                  <span className="inline-flex items-center gap-1 mt-1 px-2 py-0.5 bg-emerald-500/20 rounded-full text-emerald-300 text-[10px] border border-emerald-500/30">
+                    <Heart className="w-2.5 h-2.5" />
+                    Active
                   </span>
                 )}
               </div>
             </div>
 
-            {/* Action Buttons - Healthcare Style */}
-            <div className="space-y-3">
+            {/* Action Buttons - Fixed Dark Theme */}
+            <div className="space-y-2">
               {isAuthenticated ? (
                 <>
                   <Button
-                    className="w-full justify-start bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border border-white/20 transition-all duration-300 group"
+                    className="w-full justify-start bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white transition-all duration-300 h-10 text-sm shadow-md"
                     onClick={() => {
                       setIsOpen(false);
                       router.push("/dashboard");
                     }}
                   >
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center mr-3 group-hover:scale-110 transition-transform">
-                      <Activity className="w-4 h-4 text-white" />
+                    <div className="w-6 h-6 rounded-lg bg-white/20 flex items-center justify-center mr-2">
+                      <Activity className="w-3.5 h-3.5 text-white" />
                     </div>
                     <span>Health Dashboard</span>
                   </Button>
 
                   <Button
-                    className="w-full justify-start bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border border-white/20 transition-all duration-300 group"
+                    className="w-full justify-start bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white transition-all duration-300 h-10 text-sm shadow-md"
                     onClick={() => {
                       setIsOpen(false);
                       router.push("/dashboard");
                     }}
                   >
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-500 flex items-center justify-center mr-3 group-hover:scale-110 transition-transform">
-                      <Calendar className="w-4 h-4 text-white" />
+                    <div className="w-6 h-6 rounded-lg bg-white/20 flex items-center justify-center mr-2">
+                      <Calendar className="w-3.5 h-3.5 text-white" />
                     </div>
                     <span>My Appointments</span>
                   </Button>
 
                   <Button
-                    className="w-full justify-start bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border border-white/20 transition-all duration-300 group"
+                    className="w-full justify-start bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white transition-all duration-300 h-10 text-sm shadow-md"
                     onClick={() => {
                       setIsOpen(false);
                       router.push("/dashboard");
                     }}
                   >
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center mr-3 group-hover:scale-110 transition-transform">
-                      <FileText className="w-4 h-4 text-white" />
+                    <div className="w-6 h-6 rounded-lg bg-white/20 flex items-center justify-center mr-2">
+                      <FileText className="w-3.5 h-3.5 text-white" />
                     </div>
                     <span>Medical Records</span>
                   </Button>
 
-                  <Button
-                    className="w-full justify-start bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border border-white/20 transition-all duration-300 group"
-                    onClick={() => {
-                      setIsOpen(false);
-                      signOut({ callbackUrl: "/" });
-                    }}
-                  >
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-rose-500 to-red-500 flex items-center justify-center mr-3 group-hover:scale-110 transition-transform">
-                      <LogOut className="w-4 h-4 text-white" />
-                    </div>
-                    <span>Sign Out</span>
-                  </Button>
+                  <div className="pt-2 border-t border-white/10 mt-2">
+                    <Button
+                      className="w-full justify-start bg-gradient-to-r from-rose-500 to-red-500 hover:from-rose-600 hover:to-red-600 text-white transition-all duration-300 h-10 text-sm shadow-md"
+                      onClick={() => {
+                        setIsOpen(false);
+                        signOut({ callbackUrl: "/" });
+                      }}
+                    >
+                      <div className="w-6 h-6 rounded-lg bg-white/20 flex items-center justify-center mr-2">
+                        <LogOut className="w-3.5 h-3.5 text-white" />
+                      </div>
+                      <span>Sign Out</span>
+                    </Button>
+                  </div>
                 </>
               ) : (
                 <>
                   <Button
-                    className="w-full justify-start bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white border-0 transition-all duration-300 group"
+                    className="w-full justify-start bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white transition-all duration-300 h-10 text-sm shadow-md"
                     onClick={() => {
                       setIsOpen(false);
                       router.push("/login");
                     }}
                   >
-                    <div className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center mr-3">
-                      <LogIn className="w-4 h-4 text-white" />
+                    <div className="w-6 h-6 rounded-lg bg-white/20 flex items-center justify-center mr-2">
+                      <LogIn className="w-3.5 h-3.5 text-white" />
                     </div>
-                    <span>Sign In to Patient Portal</span>
+                    <span>Sign In</span>
                   </Button>
 
                   <Button
-                    className="w-full justify-start bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border border-white/20 transition-all duration-300 group"
+                    className="w-full justify-start bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white transition-all duration-300 h-10 text-sm shadow-md"
                     onClick={() => {
                       setIsOpen(false);
                       router.push("/signup");
                     }}
                   >
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-500 flex items-center justify-center mr-3 group-hover:scale-110 transition-transform">
-                      <Heart className="w-4 h-4 text-white" />
+                    <div className="w-6 h-6 rounded-lg bg-white/20 flex items-center justify-center mr-2">
+                      <Heart className="w-3.5 h-3.5 text-white" />
                     </div>
-                    <span>Create Patient Account</span>
+                    <span>Create Account</span>
                   </Button>
                 </>
               )}
 
               <Button
-                className="w-full justify-start bg-white/5 backdrop-blur-sm hover:bg-white/10 text-blue-200 hover:text-white border border-white/10 transition-all duration-300 mt-4"
+                className="w-full justify-center bg-slate-700 hover:bg-slate-600 text-gray-200 hover:text-white border border-white/10 transition-all duration-300 h-9 text-xs mt-1"
                 onClick={() => setIsOpen(false)}
               >
-                <Shield className="w-4 h-4 mr-3" />
+                <Shield className="w-3.5 h-3.5 mr-2" />
                 Close
               </Button>
             </div>
 
-            {/* Trust badge */}
+            {/* Trust badge - Compact */}
             {isAuthenticated && (
-              <div className="mt-6 pt-4 border-t border-white/10 text-center">
-                <p className="text-xs text-blue-200">
-                  🔒 HIPAA Compliant • Secure Portal
+              <div className="mt-3 pt-2 border-t border-white/10 text-center">
+                <p className="text-[10px] text-gray-500">
+                  🔒 HIPAA Compliant
                 </p>
               </div>
             )}

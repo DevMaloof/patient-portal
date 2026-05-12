@@ -27,7 +27,7 @@ import toast from "react-hot-toast";
 
 const Reserve = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [guests, setGuests] = useState(1); // Now represents number of patients
+  const [guests, setGuests] = useState(1);
   const [date, setDate] = useState<Date | undefined>(new Date());
   const [time, setTime] = useState("09:00");
   const [phone, setPhone] = useState("");
@@ -40,7 +40,6 @@ const Reserve = () => {
   const panelRef = useRef<HTMLDivElement>(null);
   const timeSlotsRef = useRef<HTMLDivElement>(null);
 
-  // Healthcare time slots
   const timeSlots = [
     "08:00", "08:30", "09:00", "09:30",
     "10:00", "10:30", "11:00", "11:30",
@@ -89,30 +88,34 @@ const Reserve = () => {
       return;
     }
 
+    if (!phone) {
+      toast.error("Please enter your phone number");
+      return;
+    }
+
     setIsSubmitting(true);
 
     const appointmentData = {
-      patientName: session.user.name,
-      patientEmail: session.user.email,
-      patientPhone: phone,
-      numberOfPatients: guests,
+      name: session.user.name,
+      email: session.user.email,
+      phone: phone,
+      guests: guests,
       date: date.toISOString().split('T')[0],
-      time,
-      doctor,
-      reason,
+      time: time,
     };
 
     try {
-      const res = await fetch("/api/appointments", {
+      const res = await fetch("/api/reservations", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(appointmentData),
       });
 
+      const responseData = await res.json();
+
       if (res.ok) {
         toast.success("Appointment scheduled successfully! 🏥");
         setIsOpen(false);
-        // Reset form
         setGuests(1);
         setDate(new Date());
         setTime("09:00");
@@ -121,17 +124,16 @@ const Reserve = () => {
         setDoctor("");
         setActiveStep(1);
       } else {
-        const error = await res.json();
-        toast.error(error.message || "Failed to schedule appointment");
+        toast.error(responseData.error || "Failed to schedule appointment");
       }
     } catch (error) {
+      console.error("❌ Error:", error);
       toast.error("Something went wrong");
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  // Close on outside click
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (panelRef.current && !panelRef.current.contains(e.target as Node)) {
@@ -163,17 +165,16 @@ const Reserve = () => {
         <ChevronDown className={`w-4 h-4 transform transition-transform duration-300 relative z-10 ${isOpen ? "rotate-180" : ""}`} />
       </button>
 
-      {/* Appointment Panel */}
+      {/* Appointment Panel - Dark Theme */}
       {isOpen && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-4">
           <Card
             ref={panelRef}
-            className="w-full max-w-md bg-gradient-to-br from-white to-blue-50/50 rounded-2xl shadow-2xl overflow-hidden border-0"
+            className="w-full max-w-md bg-slate-900 rounded-2xl shadow-2xl overflow-hidden border border-white/10"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Header */}
+            {/* Header - Dark Gradient */}
             <div className="bg-gradient-to-r from-blue-600 to-cyan-600 p-6 text-white relative overflow-hidden">
-              {/* Animated background */}
               <div className="absolute inset-0 opacity-20">
                 <div className="absolute -top-24 -right-24 w-48 h-48 bg-white rounded-full blur-3xl animate-pulse"></div>
                 <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-white rounded-full blur-3xl animate-pulse animation-delay-2000"></div>
@@ -195,13 +196,11 @@ const Reserve = () => {
                 </button>
               </div>
 
-              {/* Steps */}
               <div className="flex justify-between mt-6 relative z-10">
                 {steps.map((step) => (
                   <div
                     key={step.number}
-                    className={`flex flex-col items-center transition-all duration-300 ${activeStep >= step.number ? "opacity-100 scale-110" : "opacity-50"
-                      }`}
+                    className={`flex flex-col items-center transition-all duration-300 ${activeStep >= step.number ? "opacity-100 scale-110" : "opacity-50"}`}
                   >
                     <div className={`w-10 h-10 rounded-xl bg-gradient-to-r ${step.gradient} flex items-center justify-center mb-2 shadow-lg`}>
                       <step.icon className="w-5 h-5 text-white" />
@@ -212,12 +211,12 @@ const Reserve = () => {
               </div>
             </div>
 
-            {/* Content */}
-            <div className="p-6 max-h-[70vh] overflow-y-auto custom-scrollbar">
+            {/* Content - Dark Theme */}
+            <div className="p-6 max-h-[70vh] overflow-y-auto custom-scrollbar bg-slate-900">
               {activeStep === 1 && (
                 <div className="space-y-6">
                   <div className="text-center mb-4">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm">
                       <Users className="w-4 h-4" />
                       Number of Patients
                     </div>
@@ -227,14 +226,14 @@ const Reserve = () => {
                     <button
                       onClick={() => setGuests(Math.max(1, guests - 1))}
                       disabled={isSubmitting}
-                      className="w-12 h-12 rounded-xl border-2 border-blue-200 flex items-center justify-center hover:border-blue-400 hover:bg-blue-50 transition-all disabled:opacity-50 group"
+                      className="w-12 h-12 rounded-xl border-2 border-blue-500/30 flex items-center justify-center hover:border-blue-400 hover:bg-blue-500/10 transition-all disabled:opacity-50 group"
                     >
                       <Minus className="w-5 h-5 text-blue-400 group-hover:scale-110 transition-transform" />
                     </button>
 
                     <div className="text-center">
-                      <div className="text-5xl font-bold text-blue-600">{guests}</div>
-                      <div className="text-gray-600 mt-1">
+                      <div className="text-5xl font-bold text-blue-400">{guests}</div>
+                      <div className="text-gray-400 mt-1">
                         {guests === 1 ? "Patient" : "Patients"}
                       </div>
                     </div>
@@ -242,7 +241,7 @@ const Reserve = () => {
                     <button
                       onClick={() => setGuests(guests + 1)}
                       disabled={isSubmitting}
-                      className="w-12 h-12 rounded-xl border-2 border-blue-200 flex items-center justify-center hover:border-blue-400 hover:bg-blue-50 transition-all disabled:opacity-50 group"
+                      className="w-12 h-12 rounded-xl border-2 border-blue-500/30 flex items-center justify-center hover:border-blue-400 hover:bg-blue-500/10 transition-all disabled:opacity-50 group"
                     >
                       <Plus className="w-5 h-5 text-blue-400 group-hover:scale-110 transition-transform" />
                     </button>
@@ -257,7 +256,7 @@ const Reserve = () => {
               {activeStep === 2 && (
                 <div className="space-y-6">
                   <div className="flex items-center justify-between mb-2">
-                    <h4 className="text-lg font-bold text-gray-800">Select Date & Time</h4>
+                    <h4 className="text-lg font-bold text-white">Select Date & Time</h4>
                     {date && (
                       <span className="text-sm font-normal bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-3 py-1 rounded-full">
                         {date.toLocaleDateString('en-US', {
@@ -269,23 +268,23 @@ const Reserve = () => {
                     )}
                   </div>
 
-                  {/* Date Calendar */}
-                  <div className="rounded-xl bg-gradient-to-br from-blue-50 to-cyan-50 p-4">
+                  {/* Date Calendar - Dark */}
+                  <div className="rounded-xl bg-slate-800 p-4 border border-white/10">
                     <CalendarComponent
                       mode="single"
                       selected={date}
                       onSelect={setDate}
                       disabled={isDateDisabled}
-                      className="w-full"
+                      className="w-full [&_.rdp-day]:text-white [&_.rdp-day_selected]:bg-blue-500 [&_.rdp-day_selected]:text-white [&_.rdp-day:hover]:bg-blue-500/30"
                       initialFocus
                     />
                   </div>
 
-                  {/* Time Slots */}
+                  {/* Time Slots - Dark */}
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <h5 className="font-semibold text-gray-700">Available Times</h5>
-                      <span className="text-sm text-blue-600">{time}</span>
+                      <h5 className="font-semibold text-gray-300">Available Times</h5>
+                      <span className="text-sm text-blue-400">{time}</span>
                     </div>
 
                     <div
@@ -299,21 +298,19 @@ const Reserve = () => {
                             onClick={() => setTime(slot)}
                             disabled={isSubmitting}
                             className={`py-3 px-4 rounded-xl border transition-all duration-200 flex items-center justify-center ${time === slot
-                              ? "bg-gradient-to-r from-blue-500 to-cyan-500 border-blue-500 text-white shadow-md scale-105"
-                              : "border-gray-200 hover:border-blue-400 hover:bg-blue-50 text-gray-700"
+                                ? "bg-gradient-to-r from-blue-500 to-cyan-500 border-blue-500 text-white shadow-md scale-105"
+                                : "border-white/10 hover:border-blue-500/30 hover:bg-blue-500/10 text-gray-300"
                               } disabled:opacity-50 disabled:cursor-not-allowed`}
                           >
-                            <Clock className={`w-4 h-4 mr-2 ${time === slot ? "text-white" : "text-gray-400"
-                              }`} />
+                            <Clock className={`w-4 h-4 mr-2 ${time === slot ? "text-white" : "text-gray-400"}`} />
                             {slot}
                           </button>
                         ))}
                       </div>
                     </div>
 
-                    {/* Scroll indicator */}
                     <div className="text-center pt-2">
-                      <div className="inline-flex items-center text-xs text-blue-600">
+                      <div className="inline-flex items-center text-xs text-blue-400">
                         <span className="animate-bounce">↓</span>
                         <span className="mx-2">Scroll for more times</span>
                         <span className="animate-bounce">↓</span>
@@ -325,21 +322,21 @@ const Reserve = () => {
 
               {activeStep === 3 && (
                 <div className="space-y-6">
-                  <h4 className="text-lg font-bold text-gray-800">Appointment Details</h4>
+                  <h4 className="text-lg font-bold text-white">Appointment Details</h4>
 
                   {session?.user ? (
                     <div className="space-y-4">
-                      {/* Patient Info Card */}
-                      <div className="p-4 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl border border-blue-100">
-                        <p className="text-sm text-blue-600 mb-1">Patient Information</p>
-                        <p className="font-semibold text-gray-800">{session.user.name}</p>
-                        <p className="text-sm text-gray-600">{session.user.email}</p>
+                      {/* Patient Info Card - Dark */}
+                      <div className="p-4 bg-slate-800 rounded-xl border border-white/10">
+                        <p className="text-sm text-blue-400 mb-1">Patient Information</p>
+                        <p className="font-semibold text-white">{session.user.name}</p>
+                        <p className="text-sm text-gray-400">{session.user.email}</p>
                       </div>
 
                       {/* Phone Number */}
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2 items-center gap-2">
-                          <Phone className="w-4 h-4 text-blue-500" />
+                        <label className="block text-sm font-medium text-gray-300 mb-2 items-center gap-2">
+                          <Phone className="w-4 h-4 text-blue-400 inline mr-2" />
                           Phone Number
                         </label>
                         <input
@@ -347,28 +344,29 @@ const Reserve = () => {
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
                           placeholder="Enter your contact number"
-                          className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                          className="w-full p-3 bg-slate-800 border border-white/10 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder:text-gray-500 transition-all"
                         />
                         <p className="text-xs text-gray-500 mt-1">We'll text you confirmation details</p>
                       </div>
 
                       {/* Select Doctor */}
                       <div>
-                        <label className="text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
-                          <Stethoscope className="w-4 h-4 text-blue-500" />
+                        <label className="text-sm font-medium text-gray-300 mb-2 flex items-center gap-2">
+                          <Stethoscope className="w-4 h-4 text-blue-400" />
                           Select Doctor
                         </label>
                         <select
                           value={doctor}
                           onChange={(e) => setDoctor(e.target.value)}
-                          className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="w-full p-3 bg-slate-800 border border-white/10 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white"
                         >
-                          <option value="">Choose a specialist</option>
+                          <option value="" className="bg-slate-900">Choose a specialist</option>
                           {doctors.map((doc) => (
                             <option
                               key={doc.id}
                               value={doc.name}
                               disabled={!doc.available}
+                              className="bg-slate-900"
                             >
                               {doc.name} - {doc.specialty} {!doc.available && "(Unavailable)"}
                             </option>
@@ -378,50 +376,50 @@ const Reserve = () => {
 
                       {/* Reason for Visit */}
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2 items-center gap-2">
-                          <Activity className="w-4 h-4 text-blue-500" />
+                        <label className="block text-sm font-medium text-gray-300 mb-2 items-center gap-2">
+                          <Activity className="w-4 h-4 text-blue-400 inline mr-2" />
                           Reason for Visit
                         </label>
                         <select
                           value={reason}
                           onChange={(e) => setReason(e.target.value)}
-                          className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="w-full p-3 bg-slate-800 border border-white/10 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white"
                         >
-                          <option value="">Select reason</option>
+                          <option value="" className="bg-slate-900">Select reason</option>
                           {appointmentReasons.map((r) => (
-                            <option key={r} value={r}>{r}</option>
+                            <option key={r} value={r} className="bg-slate-900">{r}</option>
                           ))}
                         </select>
                       </div>
 
-                      {/* Appointment Summary */}
-                      <div className="mt-4 p-4 bg-gray-50 rounded-xl">
-                        <h5 className="font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                          <Calendar className="w-4 h-4 text-blue-500" />
+                      {/* Appointment Summary - Dark */}
+                      <div className="mt-4 p-4 bg-slate-800 rounded-xl border border-white/10">
+                        <h5 className="font-semibold text-white mb-2 flex items-center gap-2">
+                          <Calendar className="w-4 h-4 text-blue-400" />
                           Appointment Summary
                         </h5>
                         <div className="space-y-2 text-sm">
                           <p className="flex justify-between">
-                            <span className="text-gray-600">Date:</span>
-                            <span className="font-medium">{date?.toLocaleDateString()}</span>
+                            <span className="text-gray-400">Date:</span>
+                            <span className="font-medium text-white">{date?.toLocaleDateString()}</span>
                           </p>
                           <p className="flex justify-between">
-                            <span className="text-gray-600">Time:</span>
-                            <span className="font-medium">{time}</span>
+                            <span className="text-gray-400">Time:</span>
+                            <span className="font-medium text-white">{time}</span>
                           </p>
                           <p className="flex justify-between">
-                            <span className="text-gray-600">Patients:</span>
-                            <span className="font-medium">{guests}</span>
+                            <span className="text-gray-400">Patients:</span>
+                            <span className="font-medium text-white">{guests}</span>
                           </p>
                         </div>
                       </div>
                     </div>
                   ) : (
-                    <div className="text-center p-8 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl border border-blue-100">
+                    <div className="text-center p-8 bg-slate-800 rounded-xl border border-white/10">
                       <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center mx-auto mb-4">
                         <Heart className="w-8 h-8 text-white" />
                       </div>
-                      <p className="text-gray-700 mb-4">Please sign in to schedule an appointment</p>
+                      <p className="text-gray-300 mb-4">Please sign in to schedule an appointment</p>
                       <Link href="/login" onClick={() => setIsOpen(false)}>
                         <Button className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-6 py-3 rounded-xl shadow-lg">
                           Sign In to Patient Portal
@@ -432,14 +430,14 @@ const Reserve = () => {
                 </div>
               )}
 
-              {/* Navigation */}
-              <div className="flex justify-between mt-8 pt-6 border-t border-gray-100">
+              {/* Navigation - Dark */}
+              <div className="flex justify-between mt-8 pt-6 border-t border-white/10">
                 {activeStep > 1 ? (
                   <Button
                     variant="outline"
                     onClick={() => setActiveStep(activeStep - 1)}
                     disabled={isSubmitting}
-                    className="border-gray-300 text-gray-700 hover:bg-gray-50 rounded-xl px-6"
+                    className="border-white/10 text-gray-300 hover:bg-white/5 rounded-xl px-6"
                   >
                     ← Back
                   </Button>
@@ -473,7 +471,7 @@ const Reserve = () => {
                 )}
               </div>
 
-              {/* HIPAA Notice */}
+              {/* HIPAA Notice - Dark */}
               <div className="mt-4 flex items-center justify-center gap-2 text-xs text-gray-500">
                 <Shield className="w-3 h-3" />
                 <span>HIPAA compliant • Secure booking</span>

@@ -5,7 +5,6 @@ import Reserve from "@/components/reserve";
 import Infopanel from "@/components/infopanel";
 import React, { useEffect, useRef, useState } from "react";
 import Autoplay from "embla-carousel-autoplay";
-import Link from "next/link";
 import LogoText from "@/components/logotextwhite";
 import Dialogcode from "@/components/dialog";
 import gsap from "gsap";
@@ -14,7 +13,6 @@ import {
   ChevronRight,
   Heart,
   Clock,
-  MapPin,
   Users,
   Award,
   CheckCircle,
@@ -24,13 +22,10 @@ import {
   Eye,
   Bone,
   Baby,
-  Pill,
   Microscope,
-  Ambulance,
   Shield,
   Calendar,
   Phone,
-  Star,
   FileText,
   Syringe,
   Droplet,
@@ -38,9 +33,6 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-
-// Fix: Remove 'Lungs' if it doesn't exist, use Activity as fallback
-// Or you can use a custom SVG if needed
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -73,7 +65,6 @@ interface Specialty {
 
 const Services = () => {
   const [loading, setLoading] = useState(true);
-  // Fix: Properly type the state
   const [selectedSpecialty, setSelectedSpecialty] = useState<SpecialtyId>("all");
 
   useEffect(() => {
@@ -463,7 +454,7 @@ const Services = () => {
     {
       id: 7,
       category: "Pulmonology",
-      icon: <Activity className="w-8 h-8 text-emerald-400" />, // Using Activity instead of Lungs
+      icon: <Activity className="w-8 h-8 text-emerald-400" />,
       gradient: "from-emerald-500 to-teal-500",
       bgGradient: "from-emerald-500/20 to-teal-500/10",
       services: [
@@ -588,7 +579,6 @@ const Services = () => {
     { id: 8, name: "Dermatology", icon: <Activity className="w-4 h-4" /> }
   ];
 
-  // Fix: Properly filter services based on selectedSpecialty type
   const filteredServices = selectedSpecialty === "all"
     ? medicalServices
     : medicalServices.filter(s => s.id === selectedSpecialty);
@@ -635,9 +625,11 @@ const Services = () => {
   }
 
   return (
-    <div className="min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full  bg-white/25 backdrop-blur-2xl z-50 border-b border-white/20 shadow-lg">
+    // ✅ Dark theme root
+    <div className="min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white">
+
+      {/* Navigation - Dark glassmorphism */}
+      <nav className="fixed top-0 w-full bg-slate-900/80 backdrop-blur-xl z-50 border-b border-white/10 shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <LogoText />
@@ -652,7 +644,7 @@ const Services = () => {
           <Image
             src="/medical-team-hero.webp"
             fill
-            className="object-cover brightness-75"
+            className="object-cover brightness-50"
             alt="Medical Services"
             priority
           />
@@ -670,7 +662,7 @@ const Services = () => {
               </p>
               <Button
                 size="lg"
-                className="service-slide-text bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-8 py-6 text-lg font-semibold rounded-full shadow-xl hover:shadow-blue-500/25"
+                className="service-slide-text bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-8 py-6 text-lg font-semibold rounded-full shadow-xl hover:shadow-blue-500/25 transition-all duration-300"
                 onClick={() => document.getElementById("services-grid")?.scrollIntoView({ behavior: "smooth" })}
               >
                 Browse All Services
@@ -681,8 +673,8 @@ const Services = () => {
         </div>
       </div>
 
-      {/* Stats Section */}
-      <div className="py-16 px-4 bg-gradient-to-r from-blue-50 to-cyan-50">
+      {/* Stats Section - Dark */}
+      <div className="py-16 px-4 bg-slate-800">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {healthcareStats.map((stat, idx) => (
@@ -692,30 +684,30 @@ const Services = () => {
                     {stat.icon}
                   </div>
                 </div>
-                <div className="text-4xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent mb-2">
+                <div className="text-4xl font-bold text-white mb-2">
                   {stat.value}
                 </div>
-                <p className="text-gray-600 text-sm">{stat.label}</p>
+                <p className="text-gray-400 text-sm">{stat.label}</p>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Our Healthcare Philosophy Section */}
-      <div className="py-20 px-4 bg-gradient-to-br from-white to-blue-50">
+      {/* Our Healthcare Philosophy Section - Dark */}
+      <div className="py-20 px-4 bg-slate-900">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-4xl font-bold text-gray-800 mb-6">
-                Our Healthcare <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Philosophy</span>
+              <h2 className="text-4xl font-bold text-white mb-6">
+                Our Healthcare <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Philosophy</span>
               </h2>
-              <p className="text-gray-600 text-lg mb-6 leading-relaxed">
+              <p className="text-gray-300 text-lg mb-6 leading-relaxed">
                 At Maloof Health, we believe exceptional healthcare begins with listening —
                 to your concerns, your goals, and your story. Our comprehensive approach combines
                 medical expertise with genuine compassion.
               </p>
-              <p className="text-gray-600 text-lg mb-8 leading-relaxed">
+              <p className="text-gray-300 text-lg mb-8 leading-relaxed">
                 Every treatment plan is personalized, every diagnosis is thorough, and every
                 interaction is guided by respect. From preventive care to complex procedures,
                 we're committed to your wellbeing at every stage of life.
@@ -726,8 +718,8 @@ const Services = () => {
                     <CheckCircle className="w-4 h-4 text-white" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-800 mb-1">Patient-Centered Care</h4>
-                    <p className="text-gray-600">You're at the center of every decision we make</p>
+                    <h4 className="font-semibold text-white mb-1">Patient-Centered Care</h4>
+                    <p className="text-gray-400">You're at the center of every decision we make</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
@@ -735,8 +727,8 @@ const Services = () => {
                     <CheckCircle className="w-4 h-4 text-white" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-800 mb-1">Evidence-Based Medicine</h4>
-                    <p className="text-gray-600">Treatments backed by the latest medical research</p>
+                    <h4 className="font-semibold text-white mb-1">Evidence-Based Medicine</h4>
+                    <p className="text-gray-400">Treatments backed by the latest medical research</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
@@ -744,8 +736,8 @@ const Services = () => {
                     <CheckCircle className="w-4 h-4 text-white" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-800 mb-1">Continuity of Care</h4>
-                    <p className="text-gray-600">Seamless coordination between all your providers</p>
+                    <h4 className="font-semibold text-white mb-1">Continuity of Care</h4>
+                    <p className="text-gray-400">Seamless coordination between all your providers</p>
                   </div>
                 </div>
               </div>
@@ -759,10 +751,10 @@ const Services = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent" />
               <div className="absolute bottom-6 left-6 right-6">
-                <div className="bg-white/10 backdrop-blur-xl border border-white/20 p-6 rounded-xl">
+                <div className="bg-slate-800/80 backdrop-blur-xl border border-white/20 p-6 rounded-xl">
                   <h3 className="text-xl font-bold text-white mb-2">Our Commitment</h3>
-                  <p className="text-blue-100">
-                    "We treat every patient like family — with respect, dignity, and the highest standard of medical care." – <span className="text-blue-300">Dr. Sarah Mitchell, Chief Medical Officer</span>
+                  <p className="text-gray-300">
+                    "We treat every patient like family — with respect, dignity, and the highest standard of medical care." – <span className="text-blue-400">Dr. Sarah Mitchell, Chief Medical Officer</span>
                   </p>
                 </div>
               </div>
@@ -771,8 +763,8 @@ const Services = () => {
         </div>
       </div>
 
-      {/* Specialty Filter */}
-      <div className="py-8 px-4 bg-white border-y border-white/20 sticky top-16 z-40 backdrop-blur-xl bg-white/70">
+      {/* Specialty Filter - Dark */}
+      <div className="py-8 px-4 bg-slate-800 border-y border-white/10 sticky top-16 z-40">
         <div className="max-w-7xl mx-auto">
           <div className="flex overflow-x-auto pb-2 gap-2 custom-scrollbar">
             {specialties.map((specialty) => (
@@ -780,8 +772,8 @@ const Services = () => {
                 key={specialty.id}
                 onClick={() => setSelectedSpecialty(specialty.id)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 whitespace-nowrap ${selectedSpecialty === specialty.id
-                    ? "bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg"
-                    : "bg-white/50 text-gray-600 hover:bg-blue-50 border border-white/20"
+                  ? "bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg"
+                  : "bg-slate-700 text-gray-300 hover:bg-slate-600 border border-white/10"
                   }`}
               >
                 {specialty.icon}
@@ -792,8 +784,8 @@ const Services = () => {
         </div>
       </div>
 
-      {/* All Services Grid - Comprehensive List */}
-      <div id="services-grid" className="py-20 px-4 services-grid-section">
+      {/* All Services Grid - Dark */}
+      <div id="services-grid" className="py-20 px-4 services-grid-section bg-slate-900">
         <div className="max-w-7xl mx-auto">
           {filteredServices.map((category) => (
             <div key={category.id} className="mb-20 last:mb-0">
@@ -803,10 +795,10 @@ const Services = () => {
                   {category.icon}
                 </div>
                 <div>
-                  <h2 className="text-3xl md:text-4xl font-bold text-gray-800">
+                  <h2 className="text-3xl md:text-4xl font-bold text-white">
                     {category.category}
                   </h2>
-                  <p className="text-gray-600 mt-2">
+                  <p className="text-gray-400 mt-2">
                     Comprehensive {category.category.toLowerCase()} services for patients of all ages
                   </p>
                 </div>
@@ -817,7 +809,7 @@ const Services = () => {
                 {category.services.map((service, idx) => (
                   <Card
                     key={idx}
-                    className="service-card bg-white/70 backdrop-blur-xl border-white/20 overflow-hidden hover:shadow-2xl transition-all duration-300 group"
+                    className="service-card bg-slate-800/50 backdrop-blur-sm border-white/10 overflow-hidden hover:shadow-2xl hover:border-blue-500/30 transition-all duration-300 group"
                   >
                     <div className={`absolute inset-0 bg-gradient-to-br ${category.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
 
@@ -827,22 +819,22 @@ const Services = () => {
                           {service.icon}
                         </div>
                         {service.available && (
-                          <span className="px-2 py-1 bg-emerald-500/20 text-emerald-600 text-xs font-medium rounded-full border border-emerald-500/30">
+                          <span className="px-2 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-medium rounded-full border border-emerald-500/30">
                             Available
                           </span>
                         )}
                       </div>
 
-                      <h3 className="text-xl font-bold text-gray-800 mb-2">{service.name}</h3>
-                      <p className="text-gray-600 text-sm mb-4">{service.description}</p>
+                      <h3 className="text-xl font-bold text-white mb-2">{service.name}</h3>
+                      <p className="text-gray-400 text-sm mb-4">{service.description}</p>
 
                       <div className="space-y-2 mb-4">
-                        <div className="flex items-center text-sm text-gray-500">
-                          <Clock className="w-4 h-4 mr-2 text-blue-500" />
+                        <div className="flex items-center text-sm text-gray-400">
+                          <Clock className="w-4 h-4 mr-2 text-blue-400" />
                           <span>Duration: {service.duration}</span>
                         </div>
-                        <div className="flex items-center text-sm text-gray-500">
-                          <Shield className="w-4 h-4 mr-2 text-emerald-500" />
+                        <div className="flex items-center text-sm text-gray-400">
+                          <Shield className="w-4 h-4 mr-2 text-emerald-400" />
                           <span>{service.price}</span>
                         </div>
                       </div>
@@ -851,20 +843,21 @@ const Services = () => {
                 ))}
               </div>
 
-              {/* Category Footer - Additional Info */}
-              <div className="mt-8 p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl border border-blue-100">
+              {/* Category Footer - Dark */}
+              <div className="mt-8 p-4 bg-slate-800/50 rounded-xl border border-white/10">
                 <div className="flex items-center justify-between flex-wrap gap-4">
                   <div className="flex items-center gap-2">
-                    <Phone className="w-5 h-5 text-blue-600" />
-                    <span className="text-gray-700">Direct Line: (214) 555-04{30 + category.id}</span>
+                    <Phone className="w-5 h-5 text-blue-400" />
+                    <span className="text-gray-300">Direct Line: (214) 555-04{30 + category.id}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Clock className="w-5 h-5 text-emerald-600" />
-                    <span className="text-gray-700">Mon-Fri: 8AM-6PM | Sat: 9AM-2PM</span>
+                    <Clock className="w-5 h-5 text-emerald-400" />
+                    <span className="text-gray-300">Mon-Fri: 8AM-6PM | Sat: 9AM-2PM</span>
                   </div>
                   <Button
                     size="sm"
-                    className="bg-white text-blue-600 hover:bg-blue-50 border border-blue-200"
+                    variant="outline"
+                    className="border-blue-500/30 text-blue-400 hover:bg-blue-500/10"
                   >
                     View All {category.category} Services
                   </Button>
@@ -875,9 +868,9 @@ const Services = () => {
         </div>
       </div>
 
-      {/* Why Choose Us Section */}
-      <div className="py-20 px-4 bg-gradient-to-br from-blue-500 to-cyan-500 relative overflow-hidden">
-        <div className="absolute inset-0 bg-white/10 backdrop-blur-sm"></div>
+      {/* Why Choose Us Section - Dark Gradient */}
+      <div className="py-20 px-4 bg-gradient-to-br from-blue-600 to-cyan-600 relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/20"></div>
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-white mb-4">
@@ -907,70 +900,70 @@ const Services = () => {
         </div>
       </div>
 
-      {/* Patient Resources Section */}
-      <div className="py-20 px-4 bg-white">
+      {/* Patient Resources Section - Dark */}
+      <div className="py-20 px-4 bg-slate-900">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Insurance Information */}
-            <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-8 border border-blue-100">
+            <div className="bg-slate-800 rounded-2xl p-8 border border-white/10">
               <div className="w-14 h-14 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center mb-6">
                 <Shield className="w-7 h-7 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-gray-800 mb-4">Insurance Accepted</h3>
-              <p className="text-gray-600 mb-4">
+              <h3 className="text-xl font-bold text-white mb-4">Insurance Accepted</h3>
+              <p className="text-gray-400 mb-4">
                 We work with most major insurance providers to make healthcare accessible.
               </p>
-              <ul className="space-y-2 text-gray-600 mb-6">
+              <ul className="space-y-2 text-gray-400 mb-6">
                 <li className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-emerald-500" />
+                  <CheckCircle className="w-4 h-4 text-emerald-400" />
                   <span>Blue Cross Blue Shield</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-emerald-500" />
+                  <CheckCircle className="w-4 h-4 text-emerald-400" />
                   <span>UnitedHealthcare</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-emerald-500" />
+                  <CheckCircle className="w-4 h-4 text-emerald-400" />
                   <span>Cigna</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-emerald-500" />
+                  <CheckCircle className="w-4 h-4 text-emerald-400" />
                   <span>Aetna</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-emerald-500" />
+                  <CheckCircle className="w-4 h-4 text-emerald-400" />
                   <span>Medicare & Medicaid</span>
                 </li>
               </ul>
-              <Button variant="outline" className="w-full border-blue-500 text-blue-600 hover:bg-blue-50">
+              <Button variant="outline" className="w-full border-blue-500/30 text-blue-400 hover:bg-blue-500/10">
                 Verify Your Coverage
               </Button>
             </div>
 
             {/* Patient Portal */}
-            <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8 border border-purple-100">
+            <div className="bg-slate-800 rounded-2xl p-8 border border-white/10">
               <div className="w-14 h-14 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mb-6">
                 <FileText className="w-7 h-7 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-gray-800 mb-4">Patient Portal</h3>
-              <p className="text-gray-600 mb-4">
+              <h3 className="text-xl font-bold text-white mb-4">Patient Portal</h3>
+              <p className="text-gray-400 mb-4">
                 Access your medical records, lab results, and communicate with your provider.
               </p>
-              <ul className="space-y-2 text-gray-600 mb-6">
+              <ul className="space-y-2 text-gray-400 mb-6">
                 <li className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-purple-500" />
+                  <CheckCircle className="w-4 h-4 text-purple-400" />
                   <span>View test results</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-purple-500" />
+                  <CheckCircle className="w-4 h-4 text-purple-400" />
                   <span>Message your doctor</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-purple-500" />
+                  <CheckCircle className="w-4 h-4 text-purple-400" />
                   <span>Request prescription refills</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-purple-500" />
+                  <CheckCircle className="w-4 h-4 text-purple-400" />
                   <span>Manage appointments</span>
                 </li>
               </ul>
@@ -980,33 +973,33 @@ const Services = () => {
             </div>
 
             {/* New Patients */}
-            <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-8 border border-emerald-100">
+            <div className="bg-slate-800 rounded-2xl p-8 border border-white/10">
               <div className="w-14 h-14 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-xl flex items-center justify-center mb-6">
                 <Users className="w-7 h-7 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-gray-800 mb-4">New Patients</h3>
-              <p className="text-gray-600 mb-4">
+              <h3 className="text-xl font-bold text-white mb-4">New Patients</h3>
+              <p className="text-gray-400 mb-4">
                 Welcome to Maloof Health! Here's what you need to know before your first visit.
               </p>
-              <ul className="space-y-2 text-gray-600 mb-6">
+              <ul className="space-y-2 text-gray-400 mb-6">
                 <li className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-emerald-500" />
+                  <CheckCircle className="w-4 h-4 text-emerald-400" />
                   <span>Download new patient forms</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-emerald-500" />
+                  <CheckCircle className="w-4 h-4 text-emerald-400" />
                   <span>Insurance card required</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-emerald-500" />
+                  <CheckCircle className="w-4 h-4 text-emerald-400" />
                   <span>Arrive 15 minutes early</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-emerald-500" />
+                  <CheckCircle className="w-4 h-4 text-emerald-400" />
                   <span>Bring medication list</span>
                 </li>
               </ul>
-              <Button variant="outline" className="w-full border-emerald-500 text-emerald-600 hover:bg-emerald-50">
+              <Button variant="outline" className="w-full border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10">
                 New Patient Information
               </Button>
             </div>
@@ -1014,16 +1007,19 @@ const Services = () => {
         </div>
       </div>
 
-      {/* Quick Appointment CTA */}
-      <div className="py-16 px-4 bg-gradient-to-r from-blue-500 to-cyan-500">
+      {/* Quick Appointment CTA - Dark Gradient */}
+      <div className="py-16 px-4 bg-gradient-to-r from-blue-600 to-cyan-600">
         <div className="max-w-4xl mx-auto text-center">
           <h3 className="text-3xl font-bold text-white mb-4">Ready to Schedule an Appointment?</h3>
           <p className="text-blue-100 mb-8 text-lg">
             Our team is here to help you find the right specialist and appointment time.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            
-            <Button size="lg" variant="ghost" className="bg-white/20 text-white hover:bg-white hover:text-blue-400 px-8 py-6 text-lg">
+            <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-6 text-lg shadow-xl">
+              <Calendar className="mr-2" />
+              Book Online
+            </Button>
+            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 px-8 py-6 text-lg">
               <Phone className="mr-2" />
               Call (214) 555-0423
             </Button>
@@ -1034,23 +1030,22 @@ const Services = () => {
       {/* Components */}
       <Reserve />
 
-      {/* Footer */}
-      <footer className="bg-gradient-to-br from-slate-900 to-slate-950 text-white py-12 px-4 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/medical-pattern.svg')] opacity-5"></div>
-        <div className="max-w-7xl mx-auto relative z-10">
+      {/* Footer - Dark */}
+      <footer className="bg-slate-950 text-white py-12 px-4">
+        <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-8 md:mb-0">
               <div className="flex items-center space-x-2 mb-4">
                 <Heart className="w-8 h-8 text-blue-400" />
                 <span className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Maloof Health</span>
               </div>
-              <p className="text-gray-400">
-                Your trusted partner in health and wellness
+              <p className="text-gray-500">
+                Your trusted partner in health and wellness since 1995
               </p>
             </div>
             <Infopanel />
           </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+          <div className="border-t border-slate-800 mt-8 pt-8 text-center text-gray-500">
             <p>&copy; {new Date().getFullYear()} Maloof Health Systems. All rights reserved.</p>
             <p className="text-sm mt-2">700 West Elm Street, Dallas, TX 75201 | (214) 555-0423 | 24/7 Emergency: (214) 555-0911</p>
           </div>
