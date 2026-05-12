@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -13,7 +17,11 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "typeRoots": ["./types", "./node_modules/@types"],
+    "ignoreDeprecations": "6.0",
+    "typeRoots": [
+      "./types",
+      "./node_modules/@types"
+    ],
     "allowSyntheticDefaultImports": true,
     "plugins": [
       {
@@ -22,7 +30,9 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": [
+        "./*"
+      ]
     }
   },
   "include": [
@@ -31,7 +41,10 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "types",
-    "types/global.d.ts"
-, "next.config.ts"  ],
-  "exclude": ["node_modules"]
+    "types/global.d.ts",
+    "next.config.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

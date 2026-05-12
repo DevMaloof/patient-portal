@@ -268,14 +268,14 @@ const Reserve = () => {
                     )}
                   </div>
 
-                  {/* Date Calendar - Dark */}
+                  {/* Date Calendar - Fixed Dark Theme */}
                   <div className="rounded-xl bg-slate-800 p-4 border border-white/10">
                     <CalendarComponent
                       mode="single"
                       selected={date}
                       onSelect={setDate}
                       disabled={isDateDisabled}
-                      className="w-full [&_.rdp-day]:text-white [&_.rdp-day_selected]:bg-blue-500 [&_.rdp-day_selected]:text-white [&_.rdp-day:hover]:bg-blue-500/30"
+                      className="w-full dark [&_.rdp]:text-white [&_.rdp-day]:text-white [&_.rdp-day]:hover:bg-blue-500/30 [&_.rdp-day_selected]:bg-blue-500 [&_.rdp-day_selected]:text-white [&_.rdp-day_today]:border-blue-400 [&_.rdp-nav_button]:text-white [&_.rdp-nav_button]:hover:bg-white/10 [&_.rdp-caption_label]:text-white [&_.rdp-head_cell]:text-gray-400"
                       initialFocus
                     />
                   </div>
@@ -298,8 +298,8 @@ const Reserve = () => {
                             onClick={() => setTime(slot)}
                             disabled={isSubmitting}
                             className={`py-3 px-4 rounded-xl border transition-all duration-200 flex items-center justify-center ${time === slot
-                                ? "bg-gradient-to-r from-blue-500 to-cyan-500 border-blue-500 text-white shadow-md scale-105"
-                                : "border-white/10 hover:border-blue-500/30 hover:bg-blue-500/10 text-gray-300"
+                              ? "bg-gradient-to-r from-blue-500 to-cyan-500 border-blue-500 text-white shadow-md scale-105"
+                              : "border-white/10 hover:border-blue-500/30 hover:bg-blue-500/10 text-gray-300"
                               } disabled:opacity-50 disabled:cursor-not-allowed`}
                           >
                             <Clock className={`w-4 h-4 mr-2 ${time === slot ? "text-white" : "text-gray-400"}`} />
@@ -430,14 +430,14 @@ const Reserve = () => {
                 </div>
               )}
 
-              {/* Navigation - Dark */}
+              {/* Navigation - Fixed Back Button */}
               <div className="flex justify-between mt-8 pt-6 border-t border-white/10">
                 {activeStep > 1 ? (
                   <Button
                     variant="outline"
                     onClick={() => setActiveStep(activeStep - 1)}
                     disabled={isSubmitting}
-                    className="border-white/10 text-gray-300 hover:bg-white/5 rounded-xl px-6"
+                    className="border-white/20 bg-slate-800 hover:bg-slate-700 text-white rounded-xl px-6"
                   >
                     ← Back
                   </Button>
