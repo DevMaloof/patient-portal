@@ -261,9 +261,18 @@ export default function Dashboard() {
             <Heart className="w-10 h-10 text-blue-400" />
             <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Patient Portal</h1>
           </div>
-          <p className="text-xl md:text-2xl text-blue-100 font-light max-w-2xl mx-auto">
+          <p className="text-xl md:text-2xl text-blue-100 font-light max-w-2xl mx-auto mb-6">
             Manage your health journey with Maloof Health
           </p>
+
+          {/* Home Button - Dark Theme (Native button) */}
+          <button
+            onClick={() => router.push("/")}
+            className="bg-slate-800 hover:bg-slate-700 text-white border border-white/20 px-6 py-3 rounded-xl transition-all duration-300 inline-flex items-center gap-2 shadow-lg"
+          >
+            <Heart className="w-4 h-4" />
+            Back to Home
+          </button>
         </div>
       </div>
 
